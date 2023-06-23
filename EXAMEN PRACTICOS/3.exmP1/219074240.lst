@@ -1,0 +1,63 @@
+     1                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     2                                  ;assemble and link with:
+     3                                  ;assemble: -->> nasm -f win64 -o 219074240.o 219074240.asm -l 219074240.lst
+     4                                  ;link: -->> gcc -o 219074240 219074240.o
+     5                                  ;run: -->> 219074240
+     6                                  ;debugger: -->> x64dbg 219074240
+     7                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     8                                  ;-----------------------------------------
+     9                                  
+    10                                  ;file: 219074240.asm (nombre programa)
+    11                                  ;registro:
+    12                                  ;nombres y apellidos:
+    13                                  
+    14                                  extern printf, scanf
+    15                                  
+    16                                  segment .data
+    17                                  ;aqui se declaran variables inicializadas
+    18 00000000 C0CE0E0D                a 	DD	219074240
+    19 00000004 ECFFFFFF                b 	DD	-20
+    20 00000008 3FA39400                c   DD  9741119
+    21                                  
+    22                                  segment .bss
+    23                                  ;Block Started by Symbol(BSS)
+    24                                  ;aqui van las variables declaradas pero sin inicializar
+    25 00000000 ????????                x resd 1
+    26                                  
+    27                                  segment .text
+    28                                  global main
+    29                                  main:
+    30                                  ;etiqueta que indica el comienzo del programa principal
+    31                                  ;aqui van las instrucciones
+    32                                  ;---------------------------
+    33                                  ;x=(40-a)-(-b)
+    34                                  
+    35 00000000 B828000000              mov eax , 40		;eax = 40
+    36 00000005 2B0425[00000000]        sub eax ,[a]		;eax = (40-a)
+    37 0000000C F71C25[04000000]        neg dword[b]		;b= (-b )
+    38 00000013 2B0425[04000000]        sub eax ,[b]		;eax = (40-a)-(-b)
+    39 0000001A 890425[00000000]        mov [x],eax 		;x= eax
+    40                                  ;------------------------------------------------
+    41                                  ;x--
+    42                                  ;sub dword[x],1	;x=x--
+    43                                  ;----------------------------------------------------
+    44                                  ;x=(x+10)+(c+20)
+    45 00000021 830425[00000000]0A      add dword[x],10		;x=(x+10)
+    46 00000029 8B0425[00000000]        mov eax , [x]		;eax =x
+    47 00000030 830425[08000000]14      add dword[c],20		;c=(c+20)
+    48 00000038 030425[08000000]        add eax , [c]		;eax = eax +c
+    49 0000003F 890425[00000000]        mov [x],eax			;x=eax
+    50                                  ;---------------------------------------
+    51                                  ;x++
+    52 00000046 FF0425[00000000]        inc dword[x] 		;x++
+    53 0000004D C3                      ret
+    54                                  
+    55                                  
+    56                                  ;--------------------------------------
+    57                                  ;============ subrutina ===============
+    58                                  ;--------------------------------------
+    59                                  ;aqui instrucciones subrutina (funcion)
+    60                                  ;...
+    61                                  ;...
+    62 0000004E C3                      ret
+    63                                  

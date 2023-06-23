@@ -1,0 +1,13 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+   long long int registro = 219074240;
+long long int carnet =  9741119;
+long long int x ; 
+x = (registro & 0x11223344) ^ ((carnet >> 1) | 0x44332211)*2;
+cout<< x ;
+    
+}

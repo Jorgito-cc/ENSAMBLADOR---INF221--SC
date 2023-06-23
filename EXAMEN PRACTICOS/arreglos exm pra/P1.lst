@@ -1,0 +1,60 @@
+     1                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     2                                  ;assemble and link with:
+     3                                  ;assemble: -->> nasm -f win64 -o P1.o P1.asm -l P1.lst
+     4                                  ;link: -->> gcc -o P1 P1.o
+     5                                  ;run: -->> P1
+     6                                  ;debugger: -->> x64dbg P1
+     7                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     8                                  ;-----------------------------------------
+     9                                  
+    10                                  ;file: P1.asm (nombre programa)
+    11                                  ;registro:
+    12                                  ;nombres y apellidos:
+    13                                  
+    14                                  global main
+    15                                  extern printf, scanf
+    16                                  
+    17                                  segment .data
+    18 00000000 C0CE0E0D                registro dd 219074240
+    19 00000004 16000000                edad dd 22  
+    20 00000008 020000000100000009-     arreglo dd 2,1,9,0,7,4,2,4,0,2,2
+    20 00000011 000000000000000700-
+    20 0000001A 000004000000020000-
+    20 00000023 000400000000000000-
+    20 0000002C 0200000002000000   
+    21                                  
+    22                                  segment .bss
+    23                                  ;Block Started by Symbol(BSS)
+    24                                  ;aqui van las variables declaradas pero sin inicializar
+    25                                  
+    26 00000000 ????????                suma resd 1 
+    27                                  segment .text
+    28                                  main:
+    29 00000000 4831C0                  xor rax , rax 
+    30 00000003 4831DB                  xor rbx , rbx			; acumulador  
+    31 00000006 4831C9                  xor rcx , rcx 
+    32 00000009 4831F6                  xor rsi , rsi 
+    33                                  
+    34 0000000C 48B8-                   mov rax , arreglo		; dirreccion inicial del arreglo
+    34 0000000E [0800000000000000] 
+    35 00000016 B90B000000              mov rcx , 11 			; contador del ciclo 
+    36                                  
+    37 0000001B 48035804                	add rbx , [rax + 4]	; metodo indirecto por registro
+    38 0000001F 90                      	nop 
+    39 00000020 4803580C                	add rbx , [rax +12]
+    40 00000024 90                      	nop 
+    41 00000025 4803581C                	add rbx ,  [rax + 28]
+    42 00000029 90                      	nop 
+    43 0000002A 48035828                	add rbx , [rax +40]
+    44 0000002E 90                      	nop 
+    45 0000002F 48891C25[00000000]      	mov [suma] , rbx 
+    46 00000037 C3                      ret
+    47                                  
+    48                                  
+    49                                  ;--------------------------------------
+    50                                  ;============ subrutina ===============
+    51                                  ;--------------------------------------
+    52                                  ;aqui instrucciones subrutina (funcion)
+    53                                  ;...
+    54                                  ;...
+    55 00000038 C3                      ret

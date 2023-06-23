@@ -1,0 +1,46 @@
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;assemble and link with:
+;assemble: -->> nasm -f win64 -o 219074240.o 219074240.asm -l 219074240.lst
+;link: -->> gcc -o 219074240 219074240.o
+;run: -->> 219074240
+;debugger: -->> x64dbg 219074240
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;-----------------------------------------
+
+;file: 219074240.asm (nombre programa)
+;registro:
+;nombres y apellidos:
+
+
+extern printf, scanf
+
+segment .data
+;aqui se declaran variables inicializadas
+a DD 9741119
+b DD 10203040
+c DD 219074240
+s DD 0xCAFECAFE
+e DD -100000000		
+
+segment .bss
+;Block Started by Symbol(BSS)
+;aqui van las variables declaradas pero sin inicializar
+
+
+segment .text
+global main
+main:
+;etiqueta que indica el comienzo del programa principal
+;aqui van las instrucciones
+;...
+;...
+ret
+
+
+;--------------------------------------
+;============ subrutina ===============
+;--------------------------------------
+;aqui instrucciones subrutina (funcion)
+;...
+;...
+ret

@@ -1,0 +1,51 @@
+     1                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     2                                  ;assemble and link with:
+     3                                  ;assemble: -->> nasm -f win64 -o P1.o P1.asm -l P1.lst
+     4                                  ;link: -->> gcc -o P1 P1.o
+     5                                  ;run: -->> P1
+     6                                  ;debugger: -->> x64dbg P1
+     7                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     8                                  ;-----------------------------------------
+     9                                  
+    10                                  ;file: P1.asm (nombre programa)
+    11                                  ;registro:
+    12                                  ;nombres y apellidos: jorge choque calle 
+    13                                  
+    14                                  
+    15                                  extern printf, scanf
+    16                                  
+    17                                  segment .data
+    18                                  ;aqui se declaran variables inicializadas
+    19 00000000 0A141E2832              a DB 10 ,20 ,30,40,50
+    20                                  
+    21                                  segment .bss
+    22                                  ;Block Started by Symbol(BSS)
+    23                                  ;aqui van las variables declaradas pero sin inicializar
+    24 00000000 ??                      suma resb 1
+    25                                  
+    26                                  segment .text
+    27                                  global main 
+    28                                  main:
+    29                                  ;etiqueta que indica el comienzo del programa principal
+    30                                  ;aqui van las instrucciones
+    31                                  ;...
+    32                                  ;...
+    33 00000000 B905000000              mov ecx , 5 
+    34 00000005 30C0                    xor al,al 
+    35 00000007 48BB-                   mov rbx , a
+    35 00000009 [0000000000000000] 
+    36 00000011 0203                    ciclo :   add al ,[rbx] 
+    37 00000013 48FFC3                  				inc rbx
+    38 00000016 FFC9                    				dec ecx
+    39 00000018 75F7                    				jnz ciclo 
+    40 0000001A 880425[00000000]        		mov [suma],al 
+    41 00000021 C3                      ret
+    42                                  
+    43                                  
+    44                                  ;--------------------------------------
+    45                                  ;============ subrutina ===============
+    46                                  ;--------------------------------------
+    47                                  ;aqui instrucciones subrutina (funcion)
+    48                                  ;...
+    49                                  ;...
+    50 00000022 C3                      ret

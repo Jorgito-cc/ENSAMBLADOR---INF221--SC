@@ -1,0 +1,66 @@
+     1                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     2                                  ;assemble and link with:
+     3                                  ;assemble: -->> nasm -f win64 -o P1.o P1.asm -l P1.lst
+     4                                  ;link: -->> gcc -o P1 P1.o
+     5                                  ;run: -->> P1
+     6                                  ;debugger: -->> x64dbg P1
+     7                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     8                                  ;-----------------------------------------
+     9                                  
+    10                                  ;file: P1.asm (examen practico -- cs - 32 bits )
+    11                                  ;registro:
+    12                                  ;nombres y apellidos:
+    13                                  
+    14                                  extern printf, scanf
+    15                                  
+    16                                  segment .data
+    17                                  ;aqui se declaran variables inicializadas
+    18 00000000 C0CE0E0D                a dd 219074240      ;registro
+    19 00000004 AEFFFFFF                b dd -82
+    20 00000008 3FA39400                c dd 9741119    ; carnet 
+    21                                  
+    22                                  segment .bss
+    23                                  ;Block Started by Symbol(BSS)
+    24                                  ;aqui van las variables declaradas pero sin inicializar
+    25 00000000 ????????                d resd 1 
+    26                                  
+    27                                  segment .text
+    28                                  global main
+    29                                  main:
+    30                                  ; el divisor no tiene que ser cero 
+    31                                  ;d =((a<<3 ) & (-b*8)) / ((b-c) ^ 3 ) 
+    32 00000000 4831C0                   xor rax , rax           
+    33 00000003 4831DB                   xor rbx , rbx 
+    34 00000006 4831C9                   xor rcx , rcx
+    35                                  
+    36 00000009 8B0425[00000000]        mov eax , [a] 
+    37 00000010 C1E003                  sal eax , 3  	;eax =  (a<<3 ) 
+    38                                  
+    39 00000013 8B1C25[04000000]        mov ebx , [b] 	; ebx = b
+    40 0000001A F7DB                    neg ebx 		; ebx = -b 
+    41                                  
+    42 0000001C 6BDB08                  imul ebx , 8    ; ebx =  (-b *8)
+    43                                  
+    44 0000001F 21D8                    and eax , ebx 	; eax = ((a<<3 ) & (-b*8))
+    45                                  
+    46                                  ; ----------------------------------------
+    47 00000021 8B0C25[04000000]        mov ecx , [b] 
+    48 00000028 2B0C25[08000000]        sub ecx ,[c]  	;  ecx = (b-c ) 
+    49 0000002F 83C903                  or ecx , 3 		; ecx = ((b-c) ^ 3 )
+    50 00000032 83F900                  cmp ecx , 0
+    51 00000035 740A                    je fin    ; si es igual a cero 
+    52 00000037 99                      cdq 
+    53 00000038 F7F9                    idiv ecx 
+    54 0000003A 890425[00000000]        mov [d] , eax 
+    55                                  fin :
+    56                                  ; mov [d] , eax 
+    57 00000041 C3                      ret
+    58                                  
+    59                                  
+    60                                  ;--------------------------------------
+    61                                  ;============ subrutina ===============
+    62                                  ;--------------------------------------
+    63                                  ;aqui instrucciones subrutina (funcion)
+    64                                  ;...
+    65                                  ;...
+    66 00000042 C3                      ret

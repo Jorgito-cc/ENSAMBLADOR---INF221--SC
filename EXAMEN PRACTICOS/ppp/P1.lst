@@ -1,0 +1,44 @@
+     1                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     2                                  ;assemble and link with:
+     3                                  ;assemble: -->> nasm -f win64 -o P1.o P1.asm -l P1.lst
+     4                                  ;link: -->> gcc -o P1 P1.o
+     5                                  ;run: -->> P1
+     6                                  ;debugger: -->> x64dbg P1
+     7                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     8                                  ;-----------------------------------------
+     9                                  
+    10                                  ;file: P1.asm (nombre programa)
+    11                                  ;registro:
+    12                                  ;nombres y apellidos:
+    13                                  
+    14                                  
+    15                                  extern printf, scanf, gets , strlen
+    16                                  
+    17                                  segment .data
+    18 00000000 696E67726573652075-     msj db "ingrese un valor",0
+    18 00000009 6E2076616C6F7200   
+    19                                  segment .bss
+    20                                  
+    21                                  
+    22                                  segment .text
+    23                                  global main
+    24                                  main:
+    25 00000000 4883EC20                sub rsp ,0x20
+    26                                  
+    27 00000004 48B9-                   	mov rcx , msj   ;se manda la direccion 
+    27 00000006 [0000000000000000] 
+    28 0000000E E8(00000000)            	call printf
+    29 00000013 4883C420                add rsp ,0x20 
+    30                                  
+    31 00000017 C3                      ret
+    32                                  
+    33                                  
+    34                                  ;--------------------------------------
+    35                                  ;============ subrutina ===============
+    36                                  ;--------------------------------------
+    37                                  ;aqui instrucciones subrutina (funcion)
+    38                                  
+    39                                  
+    40                                  
+    41                                  
+    42 00000018 C3                      ret

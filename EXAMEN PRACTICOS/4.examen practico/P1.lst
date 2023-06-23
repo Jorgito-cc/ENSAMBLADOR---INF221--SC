@@ -1,0 +1,50 @@
+     1                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     2                                  ;assemble and link with: 
+     3                                  ;assemble: -->> nasm -f win64 -o P1.o P1.asm -l P1.lst
+     4                                  ;link:	   -->> gcc -o P1 P1.o
+     5                                  ;run:      -->> P1
+     6                                  ;debugger: -->> x64dbg P1
+     7                                  ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     8                                  ;-----------------------------------------
+     9                                  
+    10                                  ;file: P1.asm (nombre programa)
+    11                                  ;registro:
+    12                                  ;nombres y apellidos:
+    13                                  
+    14                                  
+    15                                  extern printf, scanf		
+    16                                  
+    17                                  segment .data
+    18                                  ;aqui se declaran variables inicializadas
+    19 00000000 A9                      a DB -87
+    20 00000001 B5                      b DB -75
+    21                                  		
+    22                                  segment .bss
+    23                                  ;Block Started by Symbol(BSS) 
+    24                                  ;aqui van las variables declaradas pero sin inicializar
+    25                                  
+    26                                  
+    27                                  segment .text 
+    28                                  global main 				
+    29                                  main:
+    30 00000000 4831DB                  xor rbx , rbx 	; limpieza del registro 	
+    31 00000003 B7F0                     mov BH , -16	; BH = -16 
+    32 00000005 FECF                     dec BH  
+    33 00000007 283C25[00000000]         sub[a] , bh 	; [a] = 0x     CF= | ZF = | SF = | OF =
+    34 0000000E 7209                     JC LL1 
+    35 00000010 0A3C25[01000000]         Or BH ,[b]
+    36 00000017 EB07                     JMP LL2
+    37 00000019 223C25[00000000]        LL1: AND BH,[a] 
+    38                                  LL2: 
+    39 00000020 C3                      ret
+    40                                  
+    41                                  
+    42                                  ;--------------------------------------
+    43                                  ;============ subrutina ===============
+    44                                  ;--------------------------------------
+    45                                  ;aqui instrucciones subrutina (funcion)
+    46                                  ;...
+    47                                  ;...
+    48 00000021 C3                      ret
+    49                                  
+    50                                  
